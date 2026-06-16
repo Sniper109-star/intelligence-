@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js Template",
-  description: "A minimal Next.js starter template",
+  title: "Wallet Intelligence | Solana Analytics Platform",
+  description: "Deep wallet insights, creator analysis, wallet relationships, smart money tracking, risk detection, and real-time monitoring for Solana.",
 };
 
 export default function RootLayout({
