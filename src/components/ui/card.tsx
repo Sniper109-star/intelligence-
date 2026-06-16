@@ -1,4 +1,7 @@
 import { cn } from "@/lib/utils";
+import { ScoreRing } from "@/components/wallet/score-ring";
+
+export { ScoreRing };
 
 interface CardProps {
   className?: string;

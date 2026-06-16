@@ -1,4 +1,4 @@
-import { PortfolioSnapshotsPageClient } from "./page-client";
+import { PortfolioSnapshotsPageClient } from "./page";
 
 export default function PortfolioSnapshotsPage() {
   return <PortfolioSnapshotsPageClient />;

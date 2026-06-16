@@ -1,4 +1,4 @@
-import { TransactionsPageClient } from "./page-client";
+import { TransactionsPageClient } from "./page";
 
 export default function TransactionsPage() {
   return <TransactionsPageClient />;

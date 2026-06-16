@@ -1,4 +1,4 @@
-import { WalletScoresPageClient } from "./page-client";
+import { WalletScoresPageClient } from "./page";
 
 export default function WalletScoresPage() {
   return <WalletScoresPageClient />;

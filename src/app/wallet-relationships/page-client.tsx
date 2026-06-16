@@ -1,4 +1,4 @@
-import { WalletRelationshipsPageClient } from "./page-client";
+import { WalletRelationshipsPageClient } from "./page";
 
 export default function WalletRelationshipsPage() {
   return <WalletRelationshipsPageClient />;

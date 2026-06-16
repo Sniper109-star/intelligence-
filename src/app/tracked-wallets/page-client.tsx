@@ -1,4 +1,4 @@
-import { TrackedWalletsPageClient } from "./page-client";
+import { TrackedWalletsPageClient } from "./page";
 
 export default function TrackedWalletsPage() {
   return <TrackedWalletsPageClient />;

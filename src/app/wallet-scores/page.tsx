@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "@/lib/convex";
 import { Card, StatCard, ScoreRing } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SearchInput } from "@/components/ui/search-input";
@@ -22,31 +22,45 @@ const riskColor = (level: string) => {
   }
 };
 
+type WalletScoreRow = {
+  _id: string;
+  walletAddress: string;
+  trustScore: number;
+  activityScore: number;
+  smartMoneyScore: number;
+  riskScore: number;
+  overallScore: number;
+  riskLevel: string;
+  analysis?: string;
+};
+
 export function WalletScoresPageClient() {
   const scores = useQuery(api.walletScores.listWalletScores, { limit: 100 }) ?? [];
   const [search, setSearch] = useState("");
 
+  const typed = scores as WalletScoreRow[];
+
   const filtered = useMemo(() => {
-    if (!search.trim()) return scores;
+    if (!search.trim()) return typed;
     const q = search.trim().toLowerCase();
-    return scores.filter((s) => s.walletAddress.toLowerCase().includes(q));
-  }, [scores, search]);
+    return typed.filter((s) => s.walletAddress.toLowerCase().includes(q));
+  }, [typed, search]);
 
   const stats = useMemo(() => {
-    const avgOverall = scores.length
-      ? scores.reduce((s, x) => s + x.overallScore, 0) / scores.length
+    const avgOverall = typed.length
+      ? typed.reduce((s, x) => s + x.overallScore, 0) / typed.length
       : 0;
-    const avgRisk = scores.length
-      ? scores.reduce((s, x) => s + x.riskScore, 0) / scores.length
+    const avgRisk = typed.length
+      ? typed.reduce((s, x) => s + x.riskScore, 0) / typed.length
       : 0;
-    const highRisk = scores.filter((s) => s.riskScore > 70 || s.riskLevel === "critical" || s.riskLevel === "high").length;
+    const highRisk = typed.filter((s) => s.riskScore > 70 || s.riskLevel === "critical" || s.riskLevel === "high").length;
     return {
-      total: scores.length,
+      total: typed.length,
       avgOverall,
       avgRisk,
       highRisk,
     };
-  }, [scores]);
+  }, [typed]);
 
   return (
     <div className="space-y-4 sm:space-y-6">

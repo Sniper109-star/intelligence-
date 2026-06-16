@@ -1,4 +1,4 @@
-import { WalletsPageClient } from "./page-client";
+import { WalletsPageClient } from "./page";
 
 export default function WalletsPage() {
   return <WalletsPageClient />;

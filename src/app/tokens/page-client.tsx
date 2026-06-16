@@ -1,4 +1,4 @@
-import { TokensPageClient } from "./page-client";
+import { TokensPageClient } from "./page";
 
 export default function TokensPage() {
   return <TokensPageClient />;

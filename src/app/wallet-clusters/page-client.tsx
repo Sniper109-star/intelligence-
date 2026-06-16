@@ -1,4 +1,4 @@
-import { WalletClustersPageClient } from "./page-client";
+import { WalletClustersPageClient } from "./page";
 
 export default function WalletClustersPage() {
   return <WalletClustersPageClient />;
