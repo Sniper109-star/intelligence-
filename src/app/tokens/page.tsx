@@ -60,7 +60,6 @@ export function TokensPageClient() {
                 <th className="px-3 sm:px-4 py-3 whitespace-nowrap hidden sm:table-cell">Symbol</th>
                 <th className="px-3 sm:px-4 py-3 whitespace-nowrap">Mint</th>
                 <th className="px-3 sm:px-4 py-3 whitespace-nowrap hidden md:table-cell">Supply</th>
->
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
