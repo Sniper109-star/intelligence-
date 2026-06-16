@@ -20,6 +20,9 @@ export function SearchInput({ onSearch, placeholder = "Search address...", class
     <form onSubmit={handleSubmit} className={cn("relative w-full", className)}>
       <input
         type="text"
+        inputMode="text"
+        autoCapitalize="none"
+        autoCorrect="off"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}

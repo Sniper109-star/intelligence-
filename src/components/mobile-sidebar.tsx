@@ -4,6 +4,7 @@ import { NAVIGATION } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard: ({ className }: { className?: string }) => (
@@ -50,25 +51,45 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 function getIcon(iconName: string) {
   const IconComponent = iconMap[iconName];
-  if (IconComponent) return <IconComponent className="h-[18px] w-[18px]" />;
+  if (IconComponent) return <IconComponent className="h-5 w-5" />;
   return null;
 }
 
-export default function AppSidebar() {
+export function useMobileSidebar() {
+  const [open, setOpen] = useState(false);
+  return { open, setOpen, toggle: () => setOpen((v) => !v), close: () => setOpen(false) };
+}
+
+export function MobileSidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const pathname = usePathname();
 
   return (
     <>
-      <aside className="fixed left-0 top-0 z-40 hidden h-screen w-64 border-r border-border bg-surface lg:flex lg:flex-col">
-        <div className="flex h-16 items-center gap-3 border-b border-border px-6">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20">
-            <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23.693L5 14.5m14.8.8 1.402 1.402c.637.637.18 1.732-.748 1.732H14.5a2.25 2.25 0 0 1-2.25-2.25v-1.372c0-.516.155-1.012.438-1.414l.827-.827a8.84 8.84 0 0 0 2.145-.134M12 21a9.065 9.065 0 0 0 6.23-.693l1.57-.393M12 15V9m0 0-2.25 2.25M12 9l2.25-2.25" />
-            </svg>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-bold text-foreground">Wallet Intelligence</span>
-            <span className="text-xs text-foreground-muted">Solana Analytics</span>
+      <div
+        className={cn(
+          "fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity lg:hidden",
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        )}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <nav
+        className={cn(
+          "fixed inset-y-0 left-0 z-50 w-72 -translate-x-full transform bg-surface transition-transform duration-200 ease-in-out lg:hidden",
+          open && "translate-x-0"
+        )}
+      >
+        <div className="flex h-16 items-center justify-between border-b border-border px-5">
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20">
+              <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23.693L5 14.5m14.8.8 1.402 1.402c.637.637.18 1.732-.748 1.732H14.5a2.25 2.25 0 0 1-2.25-2.25v-1.372c0-.516.155-1.012.438-1.414l.827-.827a8.84 8.84 0 0 0 2.145-.134M12 21a9.065 9.065 0 0 0 6.23-.693l1.57-.393M12 15V9m0 0-2.25 2.25M12 9l2.25-2.25" />
+              </svg>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-foreground">Wallet Intelligence</span>
+              <span className="text-[10px] text-foreground-muted">Solana Analytics</span>
+            </div>
           </div>
         </div>
         <nav className="space-y-1 p-3">
@@ -76,28 +97,41 @@ export default function AppSidebar() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onClose}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors",
                 pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href))
                   ? "bg-primary/10 text-primary"
                   : "text-foreground-muted hover:bg-surface-hover hover:text-foreground"
               )}
             >
               {getIcon(item.icon)}
-              <span className="hidden lg:inline">{item.label}</span>
+              <span>{item.label}</span>
             </Link>
           ))}
         </nav>
-        <div className="absolute bottom-0 left-0 right-0 border-t border-border p-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-xs font-bold text-primary">WI</div>
-            <div className="hidden lg:flex flex-col">
-              <span className="text-xs font-medium text-foreground">Pro Plan</span>
-              <span className="text-xs text-foreground-muted">Live</span>
-            </div>
-          </div>
+      </nav>
+
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-surface/95 backdrop-blur lg:hidden safe-area-pb">
+        <div className="flex items-center justify-around px-2 py-2">
+          {NAVIGATION.slice(0, 5).map((item) => {
+            const active = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "flex flex-col items-center gap-1 rounded-lg p-2 transition-colors min-w-[56px]",
+                  active ? "text-primary" : "text-foreground-muted"
+                )}
+              >
+                {getIcon(item.icon)}
+                <span className="text-[10px] font-medium leading-none">{item.label}</span>
+              </Link>
+            );
+          })}
         </div>
-      </aside>
+      </div>
     </>
   );
 }

@@ -26,8 +26,15 @@
   * {
     @apply border-border;
   }
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
   body {
     @apply bg-background text-foreground antialiased;
+    overscroll-behavior-y: none;
+    min-height: 100dvh;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
@@ -52,15 +59,17 @@
   .text-gradient {
     @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
   }
-}
-
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.scrollbar-thin::-webkit-scrollbar-track {
-  @apply bg-surface;
-}
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  @apply bg-border rounded-full;
+  .safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-surface;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
 }

@@ -12,8 +12,8 @@ export function RiskPageClient() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-4">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
         <StatCard title="Critical Risks" value="4" change="+1" changeType="negative" />
         <StatCard title="High Risks" value="21" change="-2%" changeType="positive" />
         <StatCard title="Avg Risk Score" value="38" change="-5" changeType="positive" />
@@ -30,7 +30,7 @@ export function RiskPageClient() {
             { type: "draining", wallet: "3mQw...", severity: "critical", description: "Rapid outbound transfers from a known draining wallet." },
             { type: "concentration", wallet: "5nPv...", severity: "high", description: "Top wallet holds 72% of circulating supply." },
           ].map((r, i) => (
-            <div key={i} className="flex items-center justify-between px-4 py-3">
+            <div key={i} className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between px-4 py-3">
               <div className="flex items-center gap-3">
                 <Badge variant={severityColor[r.severity]}>{r.severity.toUpperCase()}</Badge>
                 <div>
@@ -40,7 +40,7 @@ export function RiskPageClient() {
                   </div>
                 </div>
               </div>
-              <span className="text-xs text-foreground-muted">2h ago</span>
+              <span className="text-xs text-foreground-muted shrink-0">2h ago</span>
             </div>
           ))}
         </div>
