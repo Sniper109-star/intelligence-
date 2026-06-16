@@ -35,8 +35,58 @@ export const NAVIGATION = [
     icon: "Bell",
   },
   {
-    label: "AI Assistant",
-    href: "/dashboard",
-    icon: "Brain",
+    label: "Wallets",
+    href: "/wallets",
+    icon: "Wallet",
+  },
+  {
+    label: "Transactions",
+    href: "/transactions",
+    icon: "ArrowLeftRight",
+  },
+  {
+    label: "Tokens",
+    href: "/tokens",
+    icon: "Coins",
+  },
+  {
+    label: "Creator Wallets",
+    href: "/creator-wallets",
+    icon: "Users",
+  },
+  {
+    label: "Wallet Clusters",
+    href: "/wallet-clusters",
+    icon: "Network",
+  },
+  {
+    label: "Smart Money Wallets",
+    href: "/smart-money-wallets",
+    icon: "TrendingUp",
+  },
+  {
+    label: "Wallet Scores",
+    href: "/wallet-scores",
+    icon: "Gauge",
+  },
+  {
+    label: "Wallet Relationships",
+    href: "/wallet-relationships",
+    icon: "GitMerge",
+  },
+  {
+    label: "Risk Events",
+    href: "/risk-events",
+    icon: "ShieldAlert",
+  },
+  {
+    label: "Portfolio Snapshots",
+    href: "/portfolio-snapshots",
+    icon: "BarChart3",
+  },
+  {
+    label: "Tracked Wallets",
+    href: "/tracked-wallets",
+    icon: "Bookmark",
   },
 ] as const;
